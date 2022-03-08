@@ -7,10 +7,8 @@ spotify_token, spotify = Spotify_Auth()
 
 
 class Track:
-    def __init__(self):
-        pass
-
-    def search(self, param: str) -> FullTrack:
+    @staticmethod
+    def search(param: str) -> FullTrack:
         """Will search for track
 
         Args:
@@ -30,7 +28,8 @@ class Track:
         track = tracks.items[0]
         return track
 
-    def play(self, track_name: str, device: str) -> None:
+    @staticmethod
+    def play(track_name: str, device: str) -> None:
         """Will play the specific track
 
         Args:
@@ -44,12 +43,13 @@ class Track:
             None: None
         """
 
-        track = self.search(track_name)
+        track = Track.search(track_name)
         device_id = Device.get_id(device)
         spotify.playback_start_tracks([track.id], device_id=device_id, position_ms=0)
         return
 
-    def shuffle(self, boolean: bool = True) -> None:
+    @staticmethod
+    def shuffle(boolean: bool = True) -> None:
         """Will shuffle the tracks
 
         Args:
@@ -60,14 +60,15 @@ class Track:
 
         return
 
-    def add_to_queue(self, track_name: str) -> None:
+    @staticmethod
+    def add_to_queue(track_name: str) -> None:
         """Will add a song to the queue
 
         Args:
             track_name (str): Name of the track to add to the queue.
         """
 
-        track = self.search(track_name)
+        track = Track.search(track_name)
         track_uri = tk.to_uri("track", track.id)
         spotify.playback_queue_add(uri=track_uri)
 

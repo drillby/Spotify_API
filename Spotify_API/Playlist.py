@@ -7,10 +7,8 @@ spotify_token, spotify = Spotify_Auth()
 
 
 class Playlist:
-    def __init__(self):
-        pass
-
-    def search(self, playlist_name: str) -> SimplePlaylist:
+    @staticmethod
+    def search(playlist_name: str) -> SimplePlaylist:
         """Will search the playlist
 
         Args:
@@ -31,7 +29,8 @@ class Playlist:
 
         return playlist
 
-    def play(self, playlist_name: str, device: str) -> None:
+    @staticmethod
+    def play(playlist_name: str, device: str) -> None:
         """Will play a playlist
 
         Args:
@@ -45,7 +44,7 @@ class Playlist:
             [None]: None
         """
 
-        playlist = self.search(playlist_name)
+        playlist = Playlist.search(playlist_name)
         device_id = Device.get_id(device)
         spotify.playback_start_context(
             context_uri=playlist.uri, device_id=device_id, position_ms=0
