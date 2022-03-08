@@ -18,7 +18,7 @@ class ActiveDevice:
         Returns:
             None
         """
-        self.name = name
+        self.name = str(name)
         return
 
     def get_active_device(self) -> str:
