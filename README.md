@@ -1,4 +1,6 @@
 ### Spotify:
+README is work in progress.
+So far you can read docstrings in python files.
 
 - You need to set up tekore.cfg. See https://tekore.readthedocs.io/en/stable/getting_started.html, and put it in the web/web folder. For that use <br>
 
