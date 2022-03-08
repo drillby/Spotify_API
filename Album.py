@@ -1,5 +1,6 @@
 import tekore as tk  # https://tekore.readthedocs.io/en/stable/reference/client.html#
 from tekore._model.album import SimpleAlbumPaging
+
 from .Device import Device
 from .Spotify_auth import Spotify_Auth
 
@@ -7,10 +8,8 @@ spotify_token, spotify = Spotify_Auth()
 
 
 class Album:
-    def __init__(self):
-        pass
-
-    def search(self, param: str) -> SimpleAlbumPaging:
+    @staticmethod
+    def search(param: str) -> SimpleAlbumPaging:
         """Will search for an album
 
         Args:
@@ -30,7 +29,8 @@ class Album:
 
         return albums
 
-    def play(self, album_name: str, *device: str) -> None:
+    @staticmethod
+    def play(album_name: str, device: str) -> None:
         """Will play an album
 
         Args:
@@ -44,7 +44,7 @@ class Album:
             None: None
         """
 
-        album = self.search(album_name)
+        album = Album.search(album_name)
         album_uri = tk.to_uri("album", album.items[0].id)
         device_id = Device.get_id(device)
         spotify.playback_start_context(

@@ -1,4 +1,3 @@
-
 __author__ = "Pavel Podrazký"
 __license__ = "MIT"
 __version__ = "1.0"

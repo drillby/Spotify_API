@@ -1,5 +1,6 @@
 import tekore as tk
 from tekore._model.artist import FullArtist
+
 from .Device import Device
 from .Spotify_auth import Spotify_Auth
 
@@ -7,10 +8,8 @@ spotify_token, spotify = Spotify_Auth()
 
 
 class Artist:
-    def __init__(self) -> None:
-        pass
-
-    def search(self, param: str) -> FullArtist:
+    @staticmethod
+    def search(param: str) -> FullArtist:
         """Will search for artist
 
         Args:
@@ -30,7 +29,8 @@ class Artist:
         artist = artists.items[0]
         return artist
 
-    def play(self, artist_name: str, device: str) -> None:
+    @staticmethod
+    def play(artist_name: str, device: str) -> None:
         """Will play artist
 
         Args:
@@ -44,7 +44,7 @@ class Artist:
             [None]: None
         """
 
-        artist = self.search(artist_name)
+        artist = Artist.search(artist_name)
         artist_uri = tk.to_uri("artist", artist.id)
         device_id = Device.get_id(device)
         spotify.playback_start_context(

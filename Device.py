@@ -1,16 +1,15 @@
 import json
+
 import requests
+
 from .Spotify_auth import Spotify_Auth
 
 spotify_token, spotify = Spotify_Auth()
 
 
 class Device:
-    def __init__(self):
-        pass
-
-    @classmethod
-    def get_devices(cls) -> json:
+    @staticmethod
+    def get_devices() -> json:
         """Will return a list of devices connected to the LAN
 
         Returns:
@@ -26,8 +25,8 @@ class Device:
 
         return devices.json()
 
-    @classmethod
-    def get_id(cls, device_name: str) -> int:
+    @staticmethod
+    def get_id(device_name: str) -> int:
         """Will return an id of specific device
 
         Args:
@@ -37,16 +36,17 @@ class Device:
             int: ID of the device
         """
 
-        for device in cls.get_devices()["devices"]:
+        for device in Device.get_devices()["devices"]:
             if device["name"] == device_name:
                 return device["id"]
 
         return
 
-    def get_all_names(self) -> list:
+    @staticmethod
+    def get_all_names() -> list:
         """Will return a list of all connected devices
 
         Returns:
             list: List containing names of the devices
         """
-        return [device["name"] for device in self.get_devices()["devices"]]
+        return [device["name"] for device in Device.get_devices()["devices"]]
