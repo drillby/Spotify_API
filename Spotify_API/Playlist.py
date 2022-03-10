@@ -15,13 +15,13 @@ class Playlist:
             playlist_name (str): Name of the playlist you want to search
 
         Returns:
-            json: JSON of the playlist
+            SimplePlaylist: info about the playlist
         """
         if len(playlist_name) < 1:
             raise ValueError("Name must be at least one character long")
 
         (playlist,) = spotify.search(
-            playlist_name,
+            str(playlist_name),
             types=("playlist",),
             limit=1,
         )

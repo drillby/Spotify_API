@@ -1,4 +1,5 @@
 import json
+from typing import List
 
 import requests
 
@@ -30,20 +31,20 @@ class Device:
         """Will return an id of specific device
 
         Args:
-            device_name (str, optional): Name of the device you want to get the id. Defaults to "MYPC".
+            device_name (str): Name of the device you want to get the id.
 
         Returns:
             int: ID of the device
         """
 
         for device in Device.get_devices()["devices"]:
-            if device["name"] == device_name:
+            if device["name"] == str(device_name):
                 return device["id"]
 
         return
 
     @staticmethod
-    def get_all_names() -> list:
+    def get_all_names() -> List[str]:
         """Will return a list of all connected devices
 
         Returns:

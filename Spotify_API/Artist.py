@@ -9,20 +9,20 @@ spotify_token, spotify = Spotify_Auth()
 
 class Artist:
     @staticmethod
-    def search(param: str) -> FullArtist:
+    def search(artist_name: str) -> FullArtist:
         """Will search for artist
 
         Args:
-            param (str): name of artist to search
+            artist_name (str): name of artist to search
 
         Returns:
-            json: JSON containing artist information
+            FullArtist: artist information
         """
-        if len(param) < 1:
+        if len(artist_name) < 1:
             raise ValueError("Name must be at least one character long")
 
         (artists,) = spotify.search(
-            param,
+            str(artist_name),
             types=("artist",),
             limit=1,
         )

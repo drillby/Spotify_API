@@ -10,7 +10,7 @@ class ActiveDevice:
             if device["is_active"]:
                 self.name = device["name"]
             else:
-                self.name = name
+                self.name = str(name)
 
     def update_active_device(self, name) -> None:
         """Will update active device
@@ -50,13 +50,14 @@ class ActiveDevice:
 
         Args:
             volume (int): Defired volume of the device
-        """
 
-        """if volume not in range(-1, 101):
+        if volume not in range(0, 101):
             raise ValueError("Volume must be between 0 and 100")"""
 
-        device_name = self.name
-        device_id = Device.get_id(device_name)
-        spotify.playback_volume(volume, device_id)
+        if int(volume) not in range(0, 101):
+            raise ValueError("Volume must be between 0 and 100")
+
+        device_id = Device.get_id(self.name)
+        spotify.playback_volume(int(volume), device_id)
 
         return

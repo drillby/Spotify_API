@@ -81,6 +81,9 @@ class CurrentTrack:
         if int(num_of_songs) > 100:
             raise ValueError("Number of recommended songs cant be more than 100")
 
+        elif int(num_of_songs) <= 0:
+            raise ValueError("Number of recommended songs cant be less than 0")
+
         artists_ids, song_id = CurrentTrack.get_ids_for_recomendation()
         recom = spotify.recommendations(
             artist_ids=artists_ids, track_ids=song_id, limit=num_of_songs
@@ -93,13 +96,13 @@ class CurrentTrack:
         """Will add recommended song to the queue
 
         Args:
-            device (str, optional): Name of the device you want to add songs to queue to. Defaults to "MYPC".
-            num_of_songs (int, optional): Number of devices you want to add to queue. Defaults to 20.
+            device (str): Name of the device you want to add songs to queue to. Defaults to "MYPC".
+            num_of_songs (int, optional): Number of devices you want to add to queue. Defaults to 20. min=0, max=100
         """
 
         uris = CurrentTrack.get_uris_recomended_songs(num_of_songs)
         device_id = Device.get_id(device)
-        for uri in range(len(uris)):
-            spotify.playback_queue_add(uri=uris[uri], device_id=device_id)
+        for uri in uris:
+            spotify.playback_queue_add(uri=uri, device_id=device_id)
 
         return

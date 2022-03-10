@@ -8,20 +8,20 @@ spotify_token, spotify = Spotify_Auth()
 
 class Track:
     @staticmethod
-    def search(param: str) -> FullTrack:
+    def search(track_name: str) -> FullTrack:
         """Will search for track
 
         Args:
-            param (str): Name of the track you want to search
+            track_name (str): Name of the track you want to search
 
         Returns:
-            json: JSON containing information about the track
+            FullTrack: information about the track
         """
-        if len(param) < 1:
+        if len(track_name) < 1:
             raise ValueError("Name must be at least one character long")
 
         (tracks,) = spotify.search(
-            param,
+            str(track_name),
             types=("track",),
             limit=1,
         )
@@ -49,14 +49,14 @@ class Track:
         return
 
     @staticmethod
-    def shuffle(boolean: bool = True) -> None:
+    def shuffle(shuffle: bool = True) -> None:
         """Will shuffle the tracks
 
         Args:
-            boolean (bool, optional): True = shuffle, False = don't shuffle. Defaults to True.
+            shuffle (bool, optional): True = shuffle, False = don't shuffle. Defaults to True.
         """
 
-        spotify.playback_shuffle(boolean)
+        spotify.playback_shuffle(shuffle)
 
         return
 
